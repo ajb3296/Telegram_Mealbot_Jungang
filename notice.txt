@@ -1,0 +1,2 @@
+최초 개발자 : 안재범 (https://github.com/NewPremium)
+소스코드(Github) : https://github.com/NewPremium/Telegram_mealbot_KDMS_2.0
