@@ -1,4 +1,4 @@
-# 경덕중학교 Telegram 급식봇
+# 안동 중앙고등학교 Telegram 급식봇
 # Developer : 안재범
 # 윈도우 환경에서는 오류납니다. 무조건 리눅스 환경에서만...!
 #
@@ -29,7 +29,7 @@ from datetime import date, timedelta
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
-meal_token = '봇 토큰을 입력하세요'   #토큰을 변수에 저장합니다.
+meal_token = '693678262:AAETVUepnhw9wAes6tnHPg-0XNEPdoztWt0'   #토큰을 변수에 저장합니다.
 
 #봇 선언
 bot = telegram.Bot(token = meal_token)
@@ -43,8 +43,8 @@ custom_keyboard = [
 reply_markup = telegram.ReplyKeyboardMarkup(custom_keyboard)
 
 #챗 아이디 설정
-updates = bot.getUpdates()
-chat_id = updates[-1].message.chat.id
+# updates = bot.getUpdates()
+# chat_id = updates[-1].message.chat.id
 
 #커스텀 키보드 설정
 bot.send_message(chat_id=79673869, text="Start 안동 중앙고등학교 급식봇, 커스텀 키보드 설정완료!",  reply_markup=reply_markup)
@@ -77,7 +77,7 @@ def get_message(bot, update) :
     file.close()
     today = date.today()
     if not dday==today.strftime('%Y.%m.%d'):
-        update.message.reply_text("서버에 급식 데이터 다운로드중. . .")
+        update.message.reply_text("서버에 급식 데이터 다운로드중. . .\n이전 데이터베이스 버전 : %s" %dday)
 
         now = datetime.datetime.now()
         n = time.localtime().tm_wday
@@ -111,9 +111,10 @@ def get_message(bot, update) :
         file.close()
 
         #오늘 급식 다운로드
-        meal1 = get_diet(1, "%s.%s.%s"%(now.year,now.month,now.day), n)
-        meal2 = get_diet(2, "%s.%s.%s"%(now.year,now.month,now.day), n)
-        meal3 = get_diet(3, "%s.%s.%s"%(now.year,now.month,now.day), n)
+        r=n
+        meal1 = get_diet(1, today.strftime('%Y.%m.%d'), r)
+        meal2 = get_diet(2, today.strftime('%Y.%m.%d'), r)
+        meal3 = get_diet(3, today.strftime('%Y.%m.%d'), r)
         if meal1==" ":
             meal1="급식이 없습니다."
         elif meal2==" ":
@@ -397,8 +398,8 @@ def get_message(bot, update) :
 
     #식단 업데이트
     elif update.message.text[0:4]=="업데이트" or update.message.text[0:4]=="새로고침":
-        update.message.reply_text("서버에 급식 데이터 다운로드중. . .")
-
+        update.message.reply_text("서버에 급식 데이터 다운로드중. . .\n이전 데이터베이스 버전 : %s" %dday)
+        today = date.today()
         now = datetime.datetime.now()
         n = time.localtime().tm_wday
         
@@ -431,9 +432,10 @@ def get_message(bot, update) :
         file.close()
 
         #오늘 급식 다운로드
-        meal1 = get_diet(1, "%s.%s.%s"%(now.year,now.month,now.day), n)
-        meal2 = get_diet(2, "%s.%s.%s"%(now.year,now.month,now.day), n)
-        meal3 = get_diet(3, "%s.%s.%s"%(now.year,now.month,now.day), n)
+        r=n
+        meal1 = get_diet(1, today.strftime('%Y.%m.%d'), r)
+        meal2 = get_diet(2, today.strftime('%Y.%m.%d'), r)
+        meal3 = get_diet(3, today.strftime('%Y.%m.%d'), r)
         if meal1==" ":
             meal1="급식이 없습니다."
         elif meal2==" ":
