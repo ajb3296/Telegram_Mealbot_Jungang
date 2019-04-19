@@ -29,7 +29,7 @@ from datetime import date, timedelta
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
-meal_token = '693678262:AAETVUepnhw9wAes6tnHPg-0XNEPdoztWt0'   #토큰을 변수에 저장합니다.
+meal_token = '봇 api 키를 입력하세요'   #토큰을 변수에 저장합니다.
 
 #봇 선언
 bot = telegram.Bot(token = meal_token)
